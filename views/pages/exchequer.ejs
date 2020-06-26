@@ -1,0 +1,48 @@
+<%- include("../partials/header"); -%>
+<div class="maintable container-fluid">
+    <h5 class="section-title h1">the Exchequer</h5>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Amount collected</th>
+                <th scope="col">Amount used</th>
+                <th scope="col">Balance</th>
+                <th scope="col">Total balance</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr data-toggle="collapse" data-target="#entry1" class="clickable">
+                <th scope="row">1</th>
+                <td>April 17,2017</td>
+                <td>1800</td>
+                <td>1300</td>
+                <td>500</td>
+                <td>500</td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <div id="entry1" class="collapse">As an entry fee Rs. 50/- collected from our 36 of our forum
+                        members. Rs.1300/- spend for buying momentos for honouring our retiring staffs.</div>
+                </td>
+            </tr>
+            <tr data-toggle="collapse" data-target="#entry2" class="clickable">
+                <th scope="row">1</th>
+                <td>April 25,2017</td>
+                <td>680</td>
+                <td>400</td>
+                <td>280</td>
+                <td>780</td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <div id="entry2" class="collapse">As an entry fee Rs. 50/- collected from our 36 of our forum
+                        members. Rs.1300/- spend for buying momentos for honouring our retiring staffs.</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<%- include("../partials/footer"); -%>

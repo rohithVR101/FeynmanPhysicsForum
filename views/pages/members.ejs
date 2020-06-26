@@ -1,0 +1,75 @@
+<%- include("../partials/header"); -%>
+<section class="pd-5">
+    <h5 class="section-title h1">OUR MEMBERS</h5>
+    <div class="container-fluid members">
+        <div class="accordion" id="mainAccordion">
+            <div class="card">
+                <div class="card-header" id="memberOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Margie Carter
+                        </button>
+                    </h2>
+                </div>
+                <h1><% console.log(members) %></h1>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#mainAccordion">
+                    <div class="row card-body">
+                        <div class="col-md-9">
+                            <p>Batch: 2014-2017</p>
+                            <p>Profession: Student</p>
+                            <p>Email ID: margie.carter@example.com</p>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-warning">CHECK HER PROFILE</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header" id="memberTwo">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            Dennis Wells
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="collapseTwo" class="collapse" aria-labelledby="memberTwo" data-parent="#mainAccordion">
+                    <div class="row card-body">
+                        <div class="col-md-9">
+                            <p>Batch: 2014-2017</p>
+                            <p>Profession: Student</p>
+                            <p>Email ID: dennis.wells@example.com</p>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-warning">CHECK HIS PROFILE</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header" id="memberThree">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                            Gerald Cruz
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="collapseThree" class="collapse" aria-labelledby="memberThree" data-parent="#mainAccordion">
+                    <div class="row card-body">
+                        <div class="col-md-9">
+                            <p>Batch: 2014-2017</p>
+                            <p>Profession: Student</p>
+                            <p>Email ID: gerald.cruz@example.com</p>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-warning">CHECK HIS PROFILE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<%- include("../partials/footer"); -%>
