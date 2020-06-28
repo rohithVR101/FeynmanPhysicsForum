@@ -9,20 +9,19 @@
                         <div class="login">Log In</div>
                     </div>
 
-                    <div class="signup-form">
-                        <input type="text" placeholder="Choose a Username" class="input"><br />
-                        <input type="email" placeholder="Your Email Address" class="input"><br />
-                        <input type="password" placeholder="Choose a Password" class="input"><br />
-                        <button class="btn button">Create account</button>
-                    </div>
+                    <form action="/signup" method="POST" class="signup-form">
+                        <input type="text" placeholder="Choose a Username" name="username" class="input"><br>
+                        <input type="email" placeholder="Your Email Address" name="email" class="input"><br>
+                        <input type="password" placeholder="Choose a Password" name="password" class="input"><br>
+                        <button type="submit" class="btn button">Create account</button>
+                    </form>
 
-                    <div class="login-form">
-                        <input type="text" placeholder="Email or Username" class="input"><br />
-                        <input type="password" placeholder="Password" class="input"><br />
-                        <button class="btn button">log in</button>
+                    <form action="/login" method="POST" class="login-form">
+                        <input type="text" placeholder="Email or Username" name="username" class="input"><br />
+                        <input type="password" placeholder="Password" name="password" class="input"><br />
+                        <button type="submit" class="btn button">log in</button>
                         <span><a href="#">Forgot my username or password?</a></span>
-                    </div>
-                </div>
+                    </form>
             </div>
         </div>
     </div>

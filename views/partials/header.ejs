@@ -42,9 +42,21 @@
                 <li class="nav-item">
                     <a class="nav-link about-nav" href="/about">About</a>
                 </li>
+
+                <% if(!loginID) { %>
                 <li class="nav-item">
                     <a class="nav-link login-nav" href="/login">Sign up/Login</a>
                 </li>
+                <% } else { %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle login-nav" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Welcome <%= loginID.username %> 
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                </li>
+                <% }%>
             </ul>
         </div>
     </nav>

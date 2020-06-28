@@ -3,9 +3,9 @@ signupactive();
 $(".login").click(loginactive);
 $(".signup").click(signupactive);
 
-$(".btn").click(function () {
-    $(".input").val("");
-});
+// $(".btn").click(function () {
+//     $(".input").val("");
+// });
 
 function signupactive() {
     $(".signup-form").show();
