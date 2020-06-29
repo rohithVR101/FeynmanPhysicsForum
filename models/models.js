@@ -3,13 +3,10 @@ const faker = require("faker");
 const Bcrypt = require("bcryptjs");
 const professions = require("./professions");
 
-mongoose.connect(
-  "mongodb+srv://admin:bB0Ik0lzLq4lBT7m@cluster0-ev8dt.mongodb.net/forumDB?retryWrites=true&w=majority",
-  {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  }
-);
+mongoose.connect(process.env.DB_URL, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
 
 const memberSchema = new mongoose.Schema({
   name: String,
@@ -59,7 +56,7 @@ Member.countDocuments({}, function (err, result) {
 let admin = new User({
   username: "admin",
   email: "admin@123.com",
-  password: Bcrypt.hashSync("admin", 10),
+  password: Bcrypt.hashSync(process.env.ADMIN_PASS, 10),
 });
 
 User.countDocuments({}, function (err, result) {
