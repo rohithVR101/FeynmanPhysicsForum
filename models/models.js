@@ -3,11 +3,13 @@ const faker = require("faker");
 const Bcrypt = require("bcryptjs");
 const professions = require("./professions");
 
-
-mongoose.connect("mongodb://localhost:27017/forumDB", {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  "mongodb+srv://admin:bB0Ik0lzLq4lBT7m@cluster0-ev8dt.mongodb.net/forumDB?retryWrites=true&w=majority",
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  }
+);
 
 const memberSchema = new mongoose.Schema({
   name: String,
@@ -42,16 +44,34 @@ for (let i = 0; i < 15; i += 1) {
   };
   memberlist.push(newMember);
 }
-Member.insertMany(memberlist);
+
+Member.countDocuments({}, function (err, result) {
+  if (err) {
+    console.log(err);
+  } else {
+    if (result === 0) {
+      Member.insertMany(memberlist);
+    }
+  }
+});
 
 //create admin login
 let admin = new User({
-  username: 'admin',
-  email: 'admin@123.com',
-  password: Bcrypt.hashSync("admin", 10)
+  username: "admin",
+  email: "admin@123.com",
+  password: Bcrypt.hashSync("admin", 10),
 });
 
-admin.save();
+User.countDocuments({}, function (err, result) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(result);
+    if (result === 0) {
+      admin.save();
+    }
+  }
+});
 
 exports.Member = Member;
 exports.User = User;

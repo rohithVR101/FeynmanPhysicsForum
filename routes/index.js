@@ -45,6 +45,8 @@ router.get("/about", function (req, res) {
 router.get("/login", function (req, res) {
   res.render("pages/login", {
     current: "login",
+    message: "",
+    textcolor: "color: black;",
     loginID: req.session.user,
   });
 });
@@ -56,12 +58,31 @@ router.get("/logout", function (req, res) {
 
 router.post("/signup", async (req, res) => {
   try {
-    let salt = Bcrypt.genSaltSync(10);
-    req.body.password = Bcrypt.hashSync(req.body.password, salt);
-    let newuser = new user(req.body);
-    var result = await newuser.save();
-    console.log(result);
-    res.redirect("/login");
+    let checkuser = await user
+      .findOne({
+        username: req.body.username,
+      })
+      .exec();
+    if (!checkuser) {
+      let salt = Bcrypt.genSaltSync(10);
+      req.body.password = Bcrypt.hashSync(req.body.password, salt);
+      let newuser = new user(req.body);
+      var result = await newuser.save();
+      console.log(result);
+      res.render("pages/login", {
+        current: "login",
+        message: "User Created. Login now!",
+        textcolor: "color: green;",
+        loginID: req.session.user,
+      });
+    } else {
+      res.render("pages/login", {
+        current: "login",
+        message: "Username in use. Choose a different one now!",
+        textcolor: "color: red;",
+        loginID: req.session.user,
+      });
+    }
   } catch (error) {
     response.status(500).send(error);
   }
@@ -75,18 +96,29 @@ router.post("/login", async (req, res) => {
       })
       .exec();
     if (!checkuser) {
-      console.log(req.body.username);
-      return res.status(400).send({ message: "The username does not exist" });
+      // console.log(req.body.username);
+      return res.render("pages/login", {
+        current: "login",
+        message: "The username does not exist!",
+        textcolor: "color: red;",
+        loginID: req.session.user,
+      });
+      // return res.status(400).send({ message: "The username does not exist" });
     }
     if (!Bcrypt.compareSync(req.body.password, checkuser.password)) {
-      return res.status(400).send({ message: "The password is invalid" });
+      return res.render("pages/login", {
+        current: "login",
+        message: "The password is invalid!",
+        textcolor: "color: red;",
+        loginID: req.session.user,
+      });
+      // return res.status(400).send({ message: "The password is invalid" });
     }
     console.log("The username and password combination is correct!");
     req.session.user = checkuser;
     res.redirect("/");
   } catch (error) {
     console.log(error);
-    res.redirect("/login");
   }
 });
 

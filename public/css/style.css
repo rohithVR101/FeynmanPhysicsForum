@@ -51,6 +51,14 @@ footer {
     text-align: center;
 }
 
+.footlink{
+    color: white;
+}
+
+.footlink:hover{
+    color: red;
+}
+
 /* ---------------NAVBAR--------------- */
 
 #brand {

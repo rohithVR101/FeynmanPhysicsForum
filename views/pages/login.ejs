@@ -14,13 +14,15 @@
                         <input type="email" placeholder="Your Email Address" name="email" class="input"><br>
                         <input type="password" placeholder="Choose a Password" name="password" class="input"><br>
                         <button type="submit" class="btn button">Create account</button>
+                        <span id="smessage" style="<%= textcolor %>"> <%= message %> </span>
                     </form>
 
                     <form action="/login" method="POST" class="login-form">
                         <input type="text" placeholder="Email or Username" name="username" class="input"><br />
                         <input type="password" placeholder="Password" name="password" class="input"><br />
                         <button type="submit" class="btn button">log in</button>
-                        <span><a href="#">Forgot my username or password?</a></span>
+                        <!-- <span><a href="#">Forgot my username or password?</a></span> -->
+                        <span id="lmessage" style="<%= textcolor %>"> <%= message %> </span>
                     </form>
             </div>
         </div>
