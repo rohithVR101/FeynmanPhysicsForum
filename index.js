@@ -11,7 +11,7 @@ app.use(session({ secret: "VHNSNC",
     resave: true,
     saveUninitialized: true }));
 app.use(express.static("public"));
-app.use(routes);
+app.use("/", routes);
 
 app.set("view engine", "ejs");
 
