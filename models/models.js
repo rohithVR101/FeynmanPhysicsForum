@@ -1,12 +1,16 @@
 const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
+const findOrCreate = require("mongoose-findorcreate");
 const faker = require("faker");
 const Bcrypt = require("bcryptjs");
 const professions = require("./professions");
+const passport = require("passport");
 
 mongoose.connect(process.env.DB_URL, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
+// mongoose.set("userCreateIndex", true);
 
 const memberSchema = new mongoose.Schema({
   name: String,
@@ -21,8 +25,17 @@ const userSchema = new mongoose.Schema({
   password: String,
 });
 
+
+
+userSchema.plugin(passportLocalMongoose);
+
+
 const Member = mongoose.model("Member", memberSchema);
 const User = mongoose.model("User", userSchema);
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //create 15 random members
 let memberlist = [];
