@@ -247,6 +247,10 @@ main {
     margin-bottom: 2rem;
 }
 
+.google{
+    width: 50%;
+}
+
 .button:hover {
     color: #fff;
 
