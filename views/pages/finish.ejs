@@ -1,0 +1,19 @@
+<%- include("../partials/header"); -%>
+<section class="pd-5">
+    <div class="wrapper">
+        <div class="middle">
+            <div id="overlay">
+                <h5 class="section-title h1">Finish Account Setup</h5>
+                <div class="container">
+                    <form action="/finish" method="POST" class="finish-form">
+                        <input type="text" placeholder="Choose a Username" name="username" class="input"><br>
+                        <input type="text" placeholder="Your Batch (example: 2017-2020)" name="batch" class="input"><br>
+                        <input type="text" placeholder="Your Profession/Job Title" name="profession" class="input"><br>
+                        <button type="submit" class="btn button">Finish</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<%- include("../partials/footer"); -%>

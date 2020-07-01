@@ -51,9 +51,8 @@ router.get("/login", function (req, res) {
   });
 });
 
-
 router.post("/signup", function (req, res) {
-  User.register({ username: req.body.username }, req.body.password, function (
+  User.register({ username: req.body.username, email : req.body.email, name: req.body.username }, req.body.password, function (
     err,
     user
   ) {
@@ -66,11 +65,34 @@ router.post("/signup", function (req, res) {
       });
     } else {
       passport.authenticate("local")(req, res, function () {
-        res.redirect("/");
+        res.redirect("/finish");
       });
     }
   });
 });
+
+router
+  .route("/finish")
+  .get(function (req, res) {
+    res.render("pages/finish", {
+      current: "login",
+      loginID: req.user,
+    });
+  })
+  .post(function (req, res) {
+    User.findById(req.user._id, function (err, founduser) {
+      if (err) {
+      } else {
+        founduser.username = req.body.username;
+        founduser.batch = req.body.batch;
+        founduser.profession = req.body.profession;
+        founduser.save(function (err, doc) {
+          if (err) return console.error(err);
+          res.redirect("/");
+        });
+      }
+    });
+  });
 
 router.post("/login", function (req, res) {
   const user = new User({
@@ -102,6 +124,9 @@ router.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function (req, res) {
+    if(!req.user.lastlogin){
+      return res.redirect("/finish");
+    }
     res.redirect("/");
   }
 );

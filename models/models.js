@@ -5,7 +5,6 @@ const faker = require("faker");
 const Bcrypt = require("bcryptjs");
 const professions = require("./professions");
 const passport = require("passport");
-// const LocalStrategy = require("passport-local");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 
 mongoose.connect(process.env.DB_URL, {
@@ -13,7 +12,6 @@ mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,
 });
 mongoose.set("useCreateIndex", true);
-
 
 const userSchema = new mongoose.Schema({
   username: String,
@@ -23,6 +21,7 @@ const userSchema = new mongoose.Schema({
   googleId: String,
   batch: String,
   profession: String,
+  lastlogin: Date,
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -31,36 +30,14 @@ userSchema.plugin(findOrCreate);
 const User = new mongoose.model("User", userSchema);
 
 passport.use(User.createStrategy());
-
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
-
 passport.deserializeUser(function (id, done) {
   User.findById(id, function (err, user) {
     done(err, user);
   });
 });
-
-// const User = mongoose.model("User", userSchema);
-
-// // passport.use(User.createStrategy());
-// passport.use(
-//   new LocalStrategy(function (username, password, done) {
-//     User.findOne({ username: username }, function (err, user) {
-//       if (err) {
-//         return done(err);
-//       }
-//       if (!user) {
-//         return done(null, false);
-//       }
-//       if (user.password != password) {
-//         return done(null, false);
-//       }
-//       return done(null, user);
-//     });
-//   })
-// );
 passport.use(
   new GoogleStrategy(
     {
@@ -70,7 +47,12 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOrCreate(
-        { googleId: profile.id, email: profile.email, name: profile.displayName},
+        {
+          googleId: profile.id,
+          email: profile.email,
+          username: profile.given_name,
+          name: profile.displayName,
+        },
         function (err, user) {
           return cb(err, user);
         }
@@ -78,16 +60,6 @@ passport.use(
     }
   )
 );
-
-// passport.serializeUser(function (user, done) {
-//   done(null, user.id);
-// });
-
-// passport.deserializeUser(function (id, done) {
-//   User.findById(id, function (err, user) {
-//     done(err, user);
-//   });
-// });
 
 //create 15 random members
 let memberlist = [];
@@ -114,24 +86,6 @@ User.countDocuments({}, function (err, result) {
   } else {
     if (result === 0) {
       User.insertMany(memberlist);
-    }
-  }
-});
-
-//create admin login
-let admin = new User({
-  username: "admin",
-  email: "admin@123.com",
-  password: Bcrypt.hashSync(process.env.ADMIN_PASS, 10),
-});
-
-User.countDocuments({}, function (err, result) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(result);
-    if (result === 0) {
-      admin.save();
     }
   }
 });
