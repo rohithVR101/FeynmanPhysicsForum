@@ -1,3 +1,5 @@
+//Contains array of common Job Titles
+
 const professions = [
   "Aeronautical Engineer",
   "AMO Physicist",

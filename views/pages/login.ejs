@@ -14,6 +14,7 @@
                         <input type="email" placeholder="Your Email Address" name="email" class="input"><br>
                         <input type="password" placeholder="Choose a Password" name="password" class="input"><br>
                         <button type="submit" class="btn button">Create account</button>
+                        <!-- Where error messages are displayed hidden otherwise -->
                         <span id="smessage" style="<%= textcolor %>"> <%= message %> </span>
                     </form>
 
@@ -22,6 +23,7 @@
                         <input type="password" placeholder="Password" name="password" class="input"><br />
                         <button type="submit" class="btn button">log in</button>
                         <!-- <span><a href="#">Forgot my username or password?</a></span> -->
+                        <!-- Where error messages are displayed hidden otherwise -->
                         <span id="lmessage" style="<%= textcolor %>"> <%= message %> </span>
                         <br>
                         <a href="/auth/google" role="button"><img class="google" src="/assets/btn_google_signin_dark_pressed_web@2x.png" alt="SIGN IN WITH GOOGLE"></a>

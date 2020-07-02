@@ -2,17 +2,19 @@ const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require("mongoose-findorcreate");
 const faker = require("faker");
-const Bcrypt = require("bcryptjs");
+const Bcrypt = require("bcrypt");
 const professions = require("./professions");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 
+// Mongoose config
 mongoose.connect(process.env.DB_URL, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
 mongoose.set("useCreateIndex", true);
 
+// Define user model
 const userSchema = new mongoose.Schema({
   username: String,
   name: String,
@@ -23,6 +25,8 @@ const userSchema = new mongoose.Schema({
   profession: String,
   lastlogin: Date,
 });
+
+//Setup local and google oauth2.0 passport statergies
 
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
@@ -61,7 +65,7 @@ passport.use(
   )
 );
 
-//create 15 random members
+//Fill Db initially with 15 random members
 let memberlist = [];
 for (let i = 0; i < 15; i += 1) {
   const firstName = faker.name.firstName();
